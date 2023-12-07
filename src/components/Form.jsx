@@ -86,7 +86,7 @@ const Form = () => {
 
   return (
     <div className="container p-4 text-danger ">
-    <h1 className="text-center display-3">Forms</h1>
+      <h1 className="text-center display-3">Forms</h1>
       <form
         className="mt-5 mx-auto d-fle flex-column col-12 col-sm-8 col-md-6"
         onSubmit={handleSubmit}
@@ -190,7 +190,10 @@ const Form = () => {
           />
         </div>
         <div className="mb-3 input-group row">
-          <span class="input-group-text col-4 bg-success text-white" id="basic-addon1">
+          <span
+            class="input-group-text col-4 bg-success text-white"
+            id="basic-addon1"
+          >
             Password
           </span>
           <input
@@ -218,14 +221,16 @@ const Form = () => {
             onMouseEnter={handleMove}
             onMouseOut={handleLeave}
             type="submit"
-            className={`btn w-75 btn-primary mt-3 ${showCard ? "submitBtn" : ""}`}
+            className={`btn w-75 btn-primary mt-3 ${
+              showCard ? "submitBtn" : ""
+            }`}
           >
             Submit
           </button>
         </div>
       </form>
       {showCard && (
-        <div className="">
+        <div className=" text-center">
           <div className="mx-auto card mt-3" style={{ width: "18rem" }}>
             {/* Display cardData in the card */}
             <img
@@ -238,9 +243,9 @@ const Form = () => {
               <p className="card-text">
                 {cardData.cardFirstName} {cardData.cardLastName}
               </p>
-              <a href="#" className="btn btn-primary">
-                {cardData.cardEmail}
-              </a>
+            </div>
+            <div class="card-footer text-danger  ">
+              {cardData.cardEmail}
             </div>
           </div>
         </div>
