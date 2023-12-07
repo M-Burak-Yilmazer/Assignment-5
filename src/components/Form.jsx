@@ -4,6 +4,7 @@ import "./form.css";
 const Form = () => {
   const [passwordV, setPasswordV] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const [data, setData] = useState({
     email: "",
     username: "",
@@ -11,6 +12,13 @@ const Form = () => {
     lastName: "",
     imageUrl: "",
     password: "",
+  });
+  const [cardData, setCardData] = useState({
+    cardEmail: "",
+    cardUsername: "",
+    cardFirstName: "",
+    cardLastName: "",
+    cardImageUrl: "",
   });
   const { email, username, firstName, lastName, imageUrl, password } = data;
 
@@ -26,20 +34,26 @@ const Form = () => {
     e.target.previousElementSibling.type = passwordV ? "password" : "text";
   };
   const handleMove = (e) => {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (
       email.includes("@") &&
       username &&
       firstName &&
       lastName &&
       imageUrl.startsWith("https://") &&
-      password.length >= 8
+      passwordPattern.test(password)
     ) {
     } else {
       e.target.classList.add("submitBtn");
-      e.preventDefault();
+      e.target.UseSubmitBehavior = "false";
+      handleBtnClick(e);
     }
   };
+  function handleBtnClick(e) {
+    e.preventDefault();
 
+    // e.target.disabled = "true";
+  }
   // const handleMove = (e) => {
   //   e.target.classList.add("submitBtn");
   // };
@@ -48,16 +62,25 @@ const Form = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setVisible(!visible);
-    console.log(visible);
-    // setData({
-    //   email: "",
-    //   username: "",
-    //   firstName: "",
-    //   lastName: "",
-    //   imageUrl: "",
-    //   password: "",
-    // });
+    setShowCard(true);
+
+    setCardData({
+      cardEmail: email,
+      cardUsername: username,
+      cardFirstName: firstName,
+      cardLastName: lastName,
+      cardImageUrl: imageUrl,
+    });
+    // Optionally, you can reset the form data here after the card is displayed
+    // to keep the card data
+    setData({
+      email: "",
+      username: "",
+      firstName: "",
+      lastName: "",
+      imageUrl: "",
+      password: "",
+    });
   };
 
   return (
@@ -166,27 +189,32 @@ const Form = () => {
         </div>
         <div className="w-50 text-center  mx-auto ">
           <button
-            // onClick={handleSubmit}
+            onClick={handleMove}
             onMouseEnter={handleMove}
             onMouseOut={handleLeave}
             type="submit"
-            className="btn  btn-primary mt-3"
+            className={`btn btn-primary mt-3 ${showCard ? "submitBtn" : ""}`}
           >
             Submit
           </button>
         </div>
       </form>
-      {visible && (
+      {showCard && (
         <div>
           <div className="card" style={{ width: "18rem" }}>
-            <img src={imageUrl} className="card-img-top" alt="..." />
+            {/* Display cardData in the card */}
+            <img
+              src={cardData.cardImageUrl}
+              className="card-img-top"
+              alt="..."
+            />
             <div className="card-body">
-              <h5 className="card-title">{username}</h5>
+              <h5 className="card-title">{cardData.cardUsername}</h5>
               <p className="card-text">
-                {firstName} {lastName}
+                {cardData.cardFirstName} {cardData.cardLastName}
               </p>
               <a href="#" className="btn btn-primary">
-                {email}
+                {cardData.cardEmail}
               </a>
             </div>
           </div>
@@ -195,5 +223,4 @@ const Form = () => {
     </div>
   );
 };
-
 export default Form;
