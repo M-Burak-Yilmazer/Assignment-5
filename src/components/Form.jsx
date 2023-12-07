@@ -4,7 +4,6 @@ import "./form.css";
 const Form = () => {
   const [passwordV, setPasswordV] = useState(true);
   const [visible, setVisible] = useState(false);
-
   const [data, setData] = useState({
     email: "",
     username: "",
@@ -27,26 +26,25 @@ const Form = () => {
     e.target.previousElementSibling.type = passwordV ? "password" : "text";
   };
   const handleMove = (e) => {
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-
     if (
       email.includes("@") &&
       username &&
       firstName &&
       lastName &&
       imageUrl.startsWith("https://") &&
-      passwordPattern.test(password)
+      password.length >= 8
     ) {
-      e.target.classList.add("submitBtn");
     } else {
-      e.target.classList.remove("submitBtn");
+      e.target.classList.add("submitBtn");
+      e.preventDefault();
     }
   };
+
   // const handleMove = (e) => {
   //   e.target.classList.add("submitBtn");
   // };
   const handleLeave = (e) => {
-    setIsAnimating(false);
+    e.target.classList.remove("submitBtn");
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -166,12 +164,13 @@ const Form = () => {
             Show/Hide
           </span>
         </div>
-        <div className="w-50 text-center mx-auto ">
+        <div className="w-50 text-center  mx-auto ">
           <button
+            // onClick={handleSubmit}
             onMouseEnter={handleMove}
             onMouseOut={handleLeave}
             type="submit"
-            className={`btn btn-primary mt-3 ${isAnimating ? "submitBtn" : ""}`}
+            className="btn  btn-primary mt-3"
           >
             Submit
           </button>
