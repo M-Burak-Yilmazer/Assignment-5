@@ -31,7 +31,8 @@ const Form = () => {
   const handleClick = (e) => {
     // console.log(e.target.previousElementSibling);
     setPasswordV(!passwordV);
-    e.target.previousElementSibling.type = passwordV ? "password" : "text";
+    e.target.previousElementSibling.type = passwordV ? "text" : "password";
+    e.target.textContent = passwordV ? "Hide" : "Show";
   };
   const handleMove = (e) => {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -84,28 +85,45 @@ const Form = () => {
   };
 
   return (
-    <div className="container w-50 mt-4 text-danger">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address :{/* <span>{email}</span> */}
-          </label>
+    <div className="container p-4 text-danger ">
+    <h1 className="text-center display-3">Forms</h1>
+      <form
+        className="mt-5 mx-auto d-fle flex-column col-12 col-sm-8 col-md-6"
+        onSubmit={handleSubmit}
+      >
+        <div className="input-group mb-3 row">
+          <span
+            class="input-group-text col-4 bg-danger text-white"
+            id="basic-addon1"
+          >
+            Email address
+          </span>
+          {/* <label htmlFor="email" className="form-label">
+            Email address :
+
+          </label> */}
+
           <input
             onInput={handleForm}
             type="email"
-            className="form-control"
+            className="form-control col-9"
             id="email"
+            placeholder="Enter your email"
             // required
             name="email"
             value={email}
             aria-describedby="emailHelp"
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username :{/* <span>{username}</span> */}
-          </label>
+        <div className="input-group mb-3 row">
+          <span
+            class="input-group-text col-4 bg-danger text-white"
+            id="basic-addon1"
+          >
+            Username
+          </span>
           <input
+            placeholder="Enter your username"
             onChange={handleForm}
             type="text"
             className="form-control"
@@ -116,25 +134,31 @@ const Form = () => {
             aria-describedby="emailHelp"
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">
+        <div className="input-group mb-3 row">
+          <span
+            class="input-group-text col-4 bg-danger text-white"
+            id="basic-addon1"
+          >
             First Name
-            {/* <span> {firstName}</span> */}
-          </label>
+          </span>
           <input
             onChange={handleForm}
             type="text"
-            className="form-control"
+            className="form-control "
             id="firstName"
             name="firstName"
+            placeholder="Enter your first-name"
             value={firstName}
             aria-describedby="emailHelp"
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">
+        <div className="input-group mb-3 row">
+          <span
+            class="input-group-text col-4 bg-danger text-white"
+            id="basic-addon1"
+          >
             Last Name
-          </label>
+          </span>
           <input
             onChange={handleForm}
             type="text"
@@ -142,14 +166,18 @@ const Form = () => {
             id="lastName"
             name="lastName"
             value={lastName}
+            placeholder="Enter your last-name"
             // required
             aria-describedby="emailHelp"
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="imageUrl" className="form-label">
+        <div className="input-group mb-3 row">
+          <span
+            class="input-group-text col-4 bg-danger text-white"
+            id="basic-addon1"
+          >
             Image
-          </label>
+          </span>
           <input
             onChange={handleForm}
             id="imageUrl"
@@ -157,21 +185,18 @@ const Form = () => {
             type="url"
             value={imageUrl}
             name="imageUrl"
-            placeholder="Enter your image url"
+            placeholder="Enter your image-url"
             // required
           />
         </div>
-        <div className="mb-3 input-group ">
-          <label
-            htmlFor="password"
-            className="form-label w-100 d-block
-          "
-          >
+        <div className="mb-3 input-group row">
+          <span class="input-group-text col-4 bg-success text-white" id="basic-addon1">
             Password
-          </label>
-
+          </span>
           <input
             onChange={handleForm}
+            title="must be one digit, uppercase and lowercase"
+            placeholder="Enter your password"
             name="password"
             type="password"
             className="form-control input-group"
@@ -182,9 +207,9 @@ const Form = () => {
           <span
             onClick={handleClick}
             role="button"
-            className="input-group-text bg-success text-white"
+            className="input-group-text bg-success text-white col-2"
           >
-            Show/Hide
+            Show
           </span>
         </div>
         <div className="w-50 text-center  mx-auto ">
@@ -193,15 +218,15 @@ const Form = () => {
             onMouseEnter={handleMove}
             onMouseOut={handleLeave}
             type="submit"
-            className={`btn btn-primary mt-3 ${showCard ? "submitBtn" : ""}`}
+            className={`btn w-75 btn-primary mt-3 ${showCard ? "submitBtn" : ""}`}
           >
             Submit
           </button>
         </div>
       </form>
       {showCard && (
-        <div>
-          <div className="card" style={{ width: "18rem" }}>
+        <div className="">
+          <div className="mx-auto card mt-3" style={{ width: "18rem" }}>
             {/* Display cardData in the card */}
             <img
               src={cardData.cardImageUrl}
