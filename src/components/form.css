@@ -1,0 +1,13 @@
+.submitBtn {
+  animation: relax 0.2s infinite alternate;
+  /* transition:transform .5s ease-in-out; */
+}
+
+@keyframes relax {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
